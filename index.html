@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>goforsale.co.uk | UK marketplace</title><style>
+:root{--navy:#172554;--blue:#2563eb;--bg:#f5f7fb;--line:#e5e7eb;--muted:#667085}*{box-sizing:border-box}body{margin:0;font:15px system-ui,Arial;color:#182230;background:var(--bg)}button,input,select,textarea{font:inherit}button{cursor:pointer}.bar{background:var(--navy);color:white;padding:8px max(16px,calc((100% - 1160px)/2));font-size:13px}.header{background:white;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:2}.head{max-width:1160px;margin:auto;padding:15px 16px;display:flex;align-items:center;gap:20px}.logo{font-size:30px;font-weight:900;color:var(--navy);letter-spacing:-2px}.logo span{color:var(--blue)}.search{display:flex;flex:1;border:2px solid var(--navy);border-radius:8px;overflow:hidden}.search input{border:0;padding:11px;flex:1;min-width:0;outline:0}.search button,.primary{background:var(--blue);color:white;border:0;padding:10px 18px;font-weight:700}.actions{display:flex;gap:8px}.actions button{background:white;border:1px solid var(--line);border-radius:7px;padding:9px 12px}.nav{max-width:1160px;margin:auto;padding:0 16px 12px;display:flex;gap:20px;overflow:auto}.nav button{border:0;background:none;color:#475467;white-space:nowrap}.wrap{max-width:1160px;margin:24px auto;padding:0 16px}.hero{background:linear-gradient(110deg,#172554,#2563eb);color:white;padding:34px;border-radius:16px}.hero h1{font-size:clamp(30px,5vw,46px);line-height:1.05;margin:0 0 10px}.hero p{color:#dbeafe}.hero button{background:white;color:var(--navy);border:0;border-radius:8px;padding:11px 17px;font-weight:800}.section{display:flex;justify-content:space-between;align-items:center;margin:26px 0 13px}.section h2{margin:0}.categories{display:flex;gap:9px;overflow:auto}.cat{border:1px solid var(--line);background:white;border-radius:9px;padding:11px 15px;white-space:nowrap}.cat.active{border-color:var(--blue);color:var(--blue);background:#eff6ff}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.item{background:white;border:1px solid var(--line);border-radius:11px;overflow:hidden}.pic{height:145px;background:#edf1f7;display:grid;place-items:center;font-size:60px}.info{padding:12px}.info h3{font-size:14px;min-height:38px;margin:0 0 7px}.price{font-size:20px;font-weight:850;color:var(--navy)}.meta{color:var(--muted);font-size:12px;margin:5px 0 12px}.info button{width:100%;border:1px solid var(--blue);color:var(--blue);background:white;border-radius:7px;padding:8px;font-weight:700}.panel{background:white;border:1px solid var(--line);padding:18px;border-radius:12px;margin-top:20px}.panel h2{margin-top:0}.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{margin:11px 0}.field label{display:block;font-size:13px;font-weight:700;margin-bottom:5px}.field input,.field select,.field textarea{width:100%;padding:10px;border:1px solid #cfd5df;border-radius:7px}.field textarea{min-height:75px}.primary{border-radius:8px}.hidden{display:none!important}.notice{background:#fffaeb;color:#93370d;border:1px solid #fedf89;border-radius:8px;padding:11px;margin:12px 0;font-size:13px}.status{color:var(--green);font-weight:700}.muted{color:var(--muted)}.cards{display:flex;gap:12px;flex-wrap:wrap}.stat{background:white;border:1px solid var(--line);border-radius:10px;padding:15px;min-width:150px}.stat b{font-size:25px;display:block}.footer{background:#101d3d;color:#dbeafe;margin-top:50px;padding:30px max(16px,calc((100% - 1160px)/2))}@media(max-width:800px){.grid{grid-template-columns:repeat(3,1fr)}.head{flex-wrap:wrap;gap:10px}.search{order:3;flex-basis:100%}}@media(max-width:560px){.grid{grid-template-columns:repeat(2,1fr);gap:9px}.pic{height:115px;font-size:48px}.hero{padding:24px}.row{grid-template-columns:1fr}.actions button{padding:8px}}
+.filters{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 16px;padding:12px;background:white;border:1px solid var(--line);border-radius:12px}
+.filters label{display:grid;gap:4px;flex:1;min-width:125px;font-size:13px;font-weight:650}
+.filters select{width:100%;padding:8px;border:1px solid #cfd5df;border-radius:7px;background:white;color:inherit}
+.item{display:flex;flex-direction:column}.info{display:flex;flex:1;flex-direction:column}.info button{margin-top:auto}
+.type{align-self:flex-start;background:#eff6ff;color:var(--navy);border-radius:5px;padding:3px 7px;font-size:12px;font-weight:700;margin-bottom:7px}
+#messageDialog{width:min(600px,94vw);max-height:88vh;border:1px solid var(--line);border-radius:14px;padding:20px}
+#messageDialog::backdrop{background:#17255499}
+#messageDialog textarea{width:100%;min-height:90px}
+#threadHistory{max-height:42vh;overflow:auto}
+#threadHistory p{white-space:pre-wrap;overflow-wrap:anywhere}
+#inboxList button{display:block;width:100%;text-align:left;margin:6px 0;padding:10px;overflow-wrap:anywhere}
+.listing-photos{display:flex;gap:10px;overflow:auto;max-width:100%}
+.listing-photos img{max-width:220px;width:65%;height:145px;object-fit:contain;background:#edf1f7;border-radius:8px}
+#classifiedDetails,#editListingDialog{width:min(620px,94vw);max-height:88vh;border:1px solid var(--line);border-radius:14px}
+.info .feedback-score{display:inline;width:auto;margin:0;padding:0;border:0;text-decoration:underline}
+#sellerFeedbackDialog{width:min(540px,94vw);max-height:85vh}
+#feedbackRows textarea{display:block;width:100%;margin:8px 0}
+</style></head><body>
+<div class="bar">🇬🇧 The marketplace for buyers and sellers across the United Kingdom</div>
+<header class="header"><div class="head"><div class="logo">goforsale<span>.co.uk</span></div><form class="search" onsubmit="event.preventDefault();load()"><input id="q" aria-label="Search listings" placeholder="Search for anything…"><button>Search</button></form><div class="actions"><button onclick="document.getElementById('sell').scrollIntoView({behavior:'smooth'})">＋ Sell</button><button id="inboxButton" onclick="showInbox()">Messages</button><button onclick="showAccount()">Account</button></div></div><nav class="nav" id="nav"></nav></header>
+<main class="wrap">
+<section class="hero"><h1>Find it. Love it.<br>Make it yours.</h1><p>Discover great finds from sellers across the UK.</p><button onclick="document.getElementById('browse').scrollIntoView({behavior:'smooth'})">Explore products</button></section>
+<div class="section" id="browse"><h2>Browse categories</h2><span class="muted">Buy it now and auctions</span></div><div class="categories" id="cats"></div>
+<dialog id="classifiedDetails"><h2 id="adTitle"></h2><div id="listingPhotos" class="listing-photos"></div><p id="adDescription" style="white-space:pre-wrap"></p><p id="adPrice"></p><button id="adContact">Contact seller</button> <button onclick="document.getElementById('classifiedDetails').close()">Close</button></dialog>
+<dialog id="messageDialog" aria-labelledby="messageTitle">
+ <button type="button" onclick="document.getElementById('messageDialog').close()">Close</button>
+ <button type="button" onclick="showInbox()">Back to inbox</button>
+ <h2 id="messageTitle">Messages</h2>
+ <div id="inboxList"></div><div id="threadHistory"></div>
+ <form id="messageForm" class="hidden" onsubmit="sendMessage(event)">
+  <label for="messageBody">Your message</label>
+  <textarea id="messageBody" required maxlength="2000"></textarea>
+  <button class="primary">Send message</button>
+ </form>
+</dialog>
+<div class="section"><h2>Discover on goforsale.co.uk</h2><span id="count" class="muted" aria-live="polite"></span></div>
+<div class="filters" onchange="load()">
+  <label id="browseSubcategory" class="hidden">Subcategory<select id="subcategory"><option value="">All subcategories</option></select></label>
+  <label>Buying format<select id="type"><option value="">All formats</option><option value="fixed">Buy it now</option><option value="auction">Auction</option><option value="classified">Classified Ad</option></select></label>
+  <label>Condition<select id="condition"><option value="">Any condition</option><option>New</option><option>Used</option></select></label>
+  <label>Sort by<select id="sort"><option value="">Newest first</option><option value="low">Price low to high</option><option value="high">Price high to low</option></select></label>
+</div><div class="grid" id="products"></div>
+<section class="panel" id="account"><h2>Your account</h2><button id="paypalConnect" class="primary hidden" onclick="connectPayPal()">Connect PayPal sandbox</button><div id="accountState" class="muted">Sign in or create a buyer and seller account to list items and bid.</div><div id="businessAccount" class="hidden">
+ <button id="openBusinessButton" type="button" onclick="openBusinessAccount()">Open Business account</button>
+ <p id="listingAllowance" aria-live="polite"></p>
+ <button id="buyShop" class="hidden" type="button" onclick="buyBusinessPurchase('shop')">Activate Business Shop</button>
+ <button id="buySlots" class="hidden" type="button" onclick="buyBusinessPurchase('slot-pack')">Add listing slots</button>
+</div><div id="authForms" class="row"><form onsubmit="register(event)"><h3>Create account</h3><div class="field"><label>Your name</label><input name="name" required></div><div class="field"><label>Email</label><input name="email" type="email" required></div><div class="field"><label>Password (10+ characters)</label><input name="password" type="password" minlength="10" required></div><div class="field"><label>Account type<select name="accountType"><option value="personal">Personal</option><option value="business">Business (200 listing slots)</option></select></label></div><button class="primary">Register</button></form><form onsubmit="login(event)"><h3>Sign in</h3><div class="field"><label>Email</label><input name="email" type="email" required></div><div class="field"><label>Password</label><input name="password" type="password" required></div><button class="primary">Sign in</button></form></div><button id="logout" class="hidden" onclick="logout()">Sign out</button></section>
+<section class="panel" id="sell"><h2>Sell on goforsale.co.uk</h2><p><a href="/prohibited-items.html">Read the prohibited items policy</a></p><p class="muted">Create a fixed-price listing or start an auction.</p><div id="sellNotice" class="notice">Sign in to create a listing. Product photos up to 5MB (JPG, PNG or WebP).</div><form id="listingForm" class="hidden" onsubmit="createListing(event)">
+<div class="field"><label>Item title</label><input name="title" maxlength="100" required></div><div class="field"><label>Description</label><textarea name="description" maxlength="3000" required></textarea></div>
+<div class="row"><div class="field"><label>Department</label><select name="category" onchange="updateSubcategories(this.form)"></select></div><div class="field"><label>Condition</label><select name="condition"><option>New</option><option>Used</option></select></div></div>
+<div class="field"><label>Subcategory<select name="subcategory"></select></label></div>
+<div id="classifiedFields" class="field hidden"><label><input id="adFeeConfirm" type="checkbox" style="width:auto"> <span id="adFeeText"></span></label></div>
+<div class="row"><div class="field"><label>Price (£)</label><input name="price" type="number" min=".01" step=".01" required></div><div class="field"><label>Listing type</label><select name="listing_type" id="listingType" onchange="toggleAuction()"><option value="fixed">Buy It Now</option><option value="auction">Auction</option><option id="classifiedOption" value="classified" disabled>Classified Ad</option></select></div></div>
+<div class="field"><label>Shipping (£)<input name="shipping" type="number" min="0" max="9999999.99" step=".01" value="0" required></label><small>Enter 0 if shipping is included in the price or bid.</small></div>
+<div id="newQuantity"><div class="field"><label>Available quantity<input name="quantity" type="number" min="1" max="9999" step="1" value="1" required></label><small>Use one listing for identical items.</small></div></div>
+<div class="field hidden" id="auctionEnd"><label>Auction end date and time</label><input name="ends_at" type="datetime-local"></div>
+<div class="row"><div class="field"><label>Town / city</label><input name="location" placeholder="e.g. Bradford"></div><div class="field"><label>Product photo</label><input name="image" type="file" accept="image/jpeg,image/png,image/webp"></div></div><button class="primary">Publish listing</button></form></section>
+<section class="panel hidden" id="myListings"><h2>My Listings</h2><div id="myListingRows"></div></section>
+<dialog id="editListingDialog" aria-labelledby="editListingTitle">
+ <h2 id="editListingTitle">Edit listing</h2>
+ <form id="editListingForm" onsubmit="saveListing(event)">
+  <div class="field"><label>Item title<input name="title" maxlength="100" required></label></div>
+  <div class="field"><label>Description<textarea name="description" maxlength="3000" required></textarea></label></div>
+  <div class="row">
+   <div class="field"><label>Department<select name="category" onchange="updateSubcategories(this.form)"></select></label></div>
+   <div class="field"><label>Condition<select name="condition"><option>New</option><option>Used</option></select></label></div>
+   <div class="field"><label>Price (£)<input name="price" type="number" min=".01" step=".01" required></label></div>
+   <div class="field"><label>Town / city<input name="location" maxlength="100"></label></div>
+  </div>
+  <div class="field"><label>Shipping (£)<input name="shipping" type="number" min="0" max="9999999.99" step=".01" value="0" required></label><small>Enter 0 if shipping is included in the price or bid.</small></div>
+  <div class="field"><label>Subcategory<select name="subcategory"></select></label></div>
+  <div id="editQuantity"><div class="field"><label>Available quantity<input name="quantity" type="number" min="1" max="9999" step="1" value="1" required></label><small>Use one listing for identical items.</small></div></div>
+  <div id="editExistingPhotos" class="listing-photos"></div>
+  <div class="field"><label>Add photos<input name="photos" type="file" accept="image/jpeg,image/png,image/webp" multiple></label>
+   <small id="editPhotoNote">Up to 8 photos per listing, 5 MB each.</small></div>
+  <button class="primary">Save changes</button>
+  <button type="button" onclick="document.getElementById('editListingDialog').close()">Cancel</button>
+ </form>
+</dialog>
+<section id="feedbackPanel" class="panel hidden"><h2>Order feedback</h2><div id="feedbackRows"></div></section>
+<dialog id="sellerFeedbackDialog" aria-labelledby="sellerFeedbackTitle">
+ <h2 id="sellerFeedbackTitle">Seller feedback</h2>
+ <button type="button" onclick="document.getElementById('sellerFeedbackDialog').close()">Close</button>
+ <div id="sellerFeedbackRows"></div>
+</dialog>
+<section class="panel"><h2>Basket & orders</h2><div id="basket" class="muted">Your basket is empty.</div><div id="orderNote" class="notice">Payment processing is not enabled in this MVP. No money will be taken.</div><button id="checkout" class="primary hidden" onclick="checkout()">Prepare order (demo)</button><div id="orders"></div></section>
+<section class="panel"><h2>Marketplace administration</h2><p class="muted">Admin-only overview. Configure the administrator account in the server environment before launch.</p><button class="primary" onclick="adminSummary()">Load admin overview</button><div id="adminStats" class="cards"></div></section>
+</main><footer class="footer"><b>goforsale.co.uk</b><p><a style="color:inherit" href="/prohibited-items.html">Prohibited items</a></p><p>Buy and sell the things you love. United Kingdom.</p><small>Marketplace preview. Read the launch checklist before accepting real customers or payments.</small></footer>
+<script>
+let paymentsEnabled=false;
+const quantities=JSON.parse(sessionStorage.getItem('forsaleQuantities')||'{}');
+function saveQuantities(){
+  sessionStorage.setItem('forsaleQuantities',JSON.stringify(quantities));
+}
+let classifiedFee=0;
+let slotPack=null;
+let businessShop=null;
+let me=null, basket=JSON.parse(sessionStorage.getItem('forsaleBasket')||'[]'), category='All';
+let listingRequest=0;
+const basketItems=new Map();
+let taxonomy={};
+let categories=['All'];
+function updateSubcategories(form,selected=''){
+  const select=form.elements.subcategory;
+  select.replaceChildren(new Option('General',''),
+    ...(taxonomy[form.elements.category.value]||[]).map(name=>new Option(name)));
+  select.value=selected;
+}
+async function setupCategories(){
+  const response=await fetch('/categories.json');
+  if(!response.ok)throw Error('Could not load categories.');
+  taxonomy=await response.json();
+  categories=['All',...Object.keys(taxonomy)];
+  const form=document.getElementById('listingForm');
+  form.elements.category.replaceChildren(...categories.slice(1).map(name=>new Option(name)));
+  updateSubcategories(form);
+  initCats();
+}
+const icons={'All':'✨','Electronics':'📱','Home & Garden':'🛋️','Fashion':'👟','Motors':'🚗','Collectables':'🏺','Sports':'⚽','Other':'📦'};
+const money=n=>new Intl.NumberFormat('en-GB',{style:'currency',currency:'GBP'}).format(n);
+async function api(url,opts={}){let r=await fetch(url,{...opts,headers:{...(opts.body instanceof FormData?{}:{'Content-Type':'application/json'}),...(opts.headers||{})}});let d=await r.json().catch(()=>({error:'Unexpected server response'}));if(!r.ok)throw Error(d.error||'Request failed');return d}
+function msg(e){alert(e.message||String(e))}
+function initCats(){document.getElementById('cats').innerHTML=categories.map(c=>`<button class="cat ${c===category?'active':''}" onclick="setCat('${c}')">${icons[c]||'📦'} ${c==='All'?'All items':c}</button>`).join('');document.getElementById('nav').innerHTML=categories.map(c=>`<button onclick="setCat('${c}')">${c}</button>`).join('')}
+function setCat(c){
+  category=c;
+  document.getElementById('browseSubcategory').classList.toggle('hidden',c==='All');
+  document.getElementById('subcategory').replaceChildren(new Option('All subcategories',''),
+    ...(taxonomy[c]||[]).map(name=>new Option(name)));
+  initCats();
+  load();
+}
+async function load(){const request=++listingRequest;try{let p=new URLSearchParams();let q=document.getElementById('q').value.trim();if(q)p.set('q',q);if(category!=='All')p.set('category',category);for(const name of ['type','condition','sort','subcategory']){
+  const value=document.getElementById(name).value;
+  if(value)p.set(name,value);
+}
+const items=await api('/api/listings?'+p);
+if(request!==listingRequest)return;
+document.getElementById('count').textContent=items.length+(items.length===1?' item':' items');document.getElementById('products').innerHTML=items.map(x=>`<article class="item"><div class="pic">${x.image?.startsWith('/uploads/')?`<img src="${x.image}" style="width:100%;height:100%;object-fit:cover">`:({'Electronics':'📱','Home & Garden':'🛋️','Fashion':'👕','Motors':'🚗','Collectables':'🏺','Sports':'⚽'}[x.category]||'📦')}</div><div class="info"><span class="type">${x.listing_type==='classified'?'Classified Ad':x.listing_type==='auction'?'Auction':'Buy it now'}</span><h3>${esc(x.title)}</h3><div class="price">${money(x.price)}</div><small>${shippingLabel(x)}${x.listing_type==='fixed'?' · '+x.available_quantity+' available':''}</small><div class="meta">${esc(x.condition)} · ${esc(x.location||'UK')}<br>Seller: ${esc(x.seller_name)} · <button type="button" class="feedback-score" onclick="showSellerFeedback(${x.seller_id})">${feedbackScore(x)}</button><br>${soldLabel(x.seller_sold_count)}${x.listing_type==='auction'?`<br>Current bid: ${x.current_bid?money(x.current_bid):'No bids yet'}`:''}</div>${x.listing_type==='classified'?`<button onclick="showListingDetails(${x.id})">View details &amp; contact seller</button>`:x.listing_type==='auction'?`${Date.parse(x.ends_at)<=Date.now()
+  ? (paymentsEnabled?'<button onclick="startPayPal({auctionId:'+x.id+'})">Pay winning bid</button>':'Auction ended')
+  : '<button onclick="bid('+x.id+')">Place a bid</button>'}`:`<button onclick="addBasket(${x.id})">Add to basket</button>`}${x.listing_type!=='classified'?`<button onclick="showListingDetails(${x.id})">View details</button>`:''}${x.listing_type!=='classified'&&x.seller_id!==me?.id?`<button onclick="contactSeller(${x.id})">Contact seller</button>`:''}</div></article>`).join('')||'<p>No listings found. Try another search.</p>'}catch(e){msg(e)}}
+function shippingLabel(item){
+  return item.shipping_pence>0 ? '+ '+money(item.shipping_pence/100)+' shipping' : 'Shipping included';
+}
+function feedbackScore(item){
+  return item.feedback_count
+    ? Math.round(item.positive_feedback*100/item.feedback_count)+'% positive ('+item.feedback_count+')'
+    : 'No feedback yet';
+}
+function soldLabel(count){
+  return count+' '+(count===1?'item':'items')+' sold by this seller';
+}
+function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+async function refreshMe(){try{let d=await api('/api/me');me=d.user;paymentsEnabled=d.paymentsEnabled;classifiedFee=d.classifiedFee||0;
+document.getElementById('businessAccount').classList.toggle('hidden',!me);
+document.getElementById('openBusinessButton').classList.toggle('hidden',me?.accountType==='business');
+const allowance=d.listingAllowance;
+businessShop=d.businessShop;
+slotPack=businessShop?.active?d.slotPack:null;
+const buyShop=document.getElementById('buyShop');
+buyShop.classList.toggle('hidden',!paymentsEnabled||!businessShop||businessShop.active);
+if(businessShop)buyShop.textContent='Activate Business Shop · '+money(businessShop.feePence/100)+' for 30 days (PayPal sandbox)';
+const buySlots=document.getElementById('buySlots');
+buySlots.classList.toggle('hidden',!slotPack);
+if(slotPack)buySlots.textContent='Add '+slotPack.slots+' slots for '+money(slotPack.feePence/100)+' (PayPal sandbox)';
+document.getElementById('listingAllowance').textContent=allowance?
+  'Business account · '+allowance.used+' of '+allowance.limit+' listing slots in use. '+(businessShop.active?'Shop active.':'Shop payment required to publish.') : '';
+
+if(!me)document.getElementById('messageDialog').close();
+updateUnread();
+loadMyListings();
+loadFeedback();
+document.getElementById('classifiedOption').disabled=!classifiedFee;
+document.getElementById('adFeeText').textContent='I agree to pay the '+money(classifiedFee/100)+' PayPal sandbox listing fee before publication.';
+document.getElementById('paypalConnect').classList.toggle('hidden',!me||!paymentsEnabled);
+document.getElementById('checkout').textContent=paymentsEnabled?'Pay with PayPal sandbox':'Prepare order';document.getElementById('accountState').textContent=me?`Signed in as ${me.name} (${me.email})`:'You are not signed in.';document.getElementById('authForms').classList.toggle('hidden',!!me);document.getElementById('logout').classList.toggle('hidden',!me);document.getElementById('listingForm').classList.toggle('hidden',!me);document.getElementById('sellNotice').classList.toggle('hidden',!!me);document.getElementById('orderNote').textContent=paymentsEnabled?'PayPal sandbox. Check out separately for each seller.':'Demo checkout only: no payment will be taken.';loadOrders()}catch(e){console.error(e)}}
+async function buyBusinessPurchase(kind){
+  const shop=kind==='shop';
+  const purchase=shop?businessShop:slotPack;
+  if(!purchase)return;
+  const button=document.getElementById(shop?'buyShop':'buySlots');
+  button.disabled=true;
+  try{
+    const order=await api('/api/business-account/'+kind,{
+      method:'POST',body:JSON.stringify({feePence:purchase.feePence})
+    });
+    await loadOrders();
+    await approvePayPal(order.orderId);
+  }catch(e){msg(e)}
+  finally{button.disabled=false}
+}
+async function openBusinessAccount(){
+  if(!confirm('Switch this account to Business with 200 listing slots? Classified ad fees still apply.'))return;
+  try{
+    await api('/api/business-account',{method:'POST'});
+    await refreshMe();
+  }catch(e){msg(e)}
+}
+async function register(e){e.preventDefault();let f=Object.fromEntries(new FormData(e.target));try{await api('/api/register',{method:'POST',body:JSON.stringify(f)});e.target.reset();await refreshMe();alert('Account created. Welcome to goforsale.co.uk.')}catch(x){msg(x)}}
+async function login(e){e.preventDefault();let f=Object.fromEntries(new FormData(e.target));try{await api('/api/login',{method:'POST',body:JSON.stringify(f)});e.target.reset();await refreshMe()}catch(x){msg(x)}}
+async function logout(){await api('/api/logout',{method:'POST'});me=null;await refreshMe()}
+async function addBasket(id){try{
+  const item=await api('/api/listings/'+id);
+  basketItems.set(id,item);
+  if(!basket.includes(id))basket.push(id);
+}catch(e){msg(e);return}
+sessionStorage.setItem('forsaleBasket',JSON.stringify(basket));renderBasket()}
+function renderBasket(){
+  const chosen=basket.map(id=>basketItems.get(id)).filter(Boolean);
+  document.getElementById('basket').innerHTML=chosen.length?chosen.map(x=>{
+    const quantity=quantities[x.id]||1;
+    return `<p>${esc(x.title)} — <b>${money(x.price)}</b> · ${shippingLabel(x)} per item
+      <label>Quantity <input type="number" min="1" max="${x.available_quantity||1}" value="${quantity}" style="width:5em"
+       onchange="changeQuantity(${x.id},this.value)"></label>
+      <button onclick="removeBasket(${x.id})">Remove</button></p>`;
+  }).join('')+'<b>Total including shipping: '+money(chosen.reduce((sum,x)=>
+    sum+(x.price+(x.shipping_pence||0)/100)*(quantities[x.id]||1),0))+'</b>':'Your basket is empty.';
+  document.getElementById('checkout').classList.toggle('hidden',!basket.length);
+}
+function changeQuantity(id,value){
+  const count=Number(value);
+  const available=basketItems.get(id)?.available_quantity||0;
+  if(Number.isInteger(count)&&count>=1&&count<=available){quantities[id]=count;saveQuantities()}
+  else msg('Choose a quantity between 1 and the available stock.');
+  renderBasket();
+}
+function removeBasket(id){
+  basket=basket.filter(x=>x!==id);
+  delete quantities[id];
+  saveQuantities();
+  sessionStorage.setItem('forsaleBasket',JSON.stringify(basket));
+  renderBasket();
+}
+function clearBasket(){
+  for(const id of basket)delete quantities[id];
+  saveQuantities();
+  basket=[];
+  sessionStorage.removeItem('forsaleBasket');
+  renderBasket();
+}
+async function checkout(){
+  const selection={listingIds:basket,quantities};
+  if(paymentsEnabled)return startPayPal(selection);
+  if(!me){alert('Please sign in before preparing an order.');return}
+  try{
+    const result=await api('/api/checkout',{method:'POST',body:JSON.stringify(selection)});
+    clearBasket();
+    alert('Demo order #'+result.orderId+' prepared. Payment is not enabled.');
+    await load();
+    await loadOrders();
+  }catch(e){msg(e)}
+}
+async function loadOrders(){if(!me)return;try{let o=await api('/api/orders');document.getElementById('orders').innerHTML=o.length?'<h3>Your orders</h3>'+o.map(x=>`<p>${x.shop_order?'Business Shop':x.slot_pack?'Business listing slots':x.classified_title?'Classified listing fee':'Order'} #${x.id} · ${money(x.total)} · ${esc(x.status)}<br><small>${esc(x.classified_title||x.items||'')}</small> ${x.paypal_order&&x.status==='payment_pending'?'<button onclick="approvePayPal('+x.id+')">Resume PayPal checkout</button>':''}</p>`).join(''):''}catch(e){}}
+function toggleAuction(){
+  const type=document.getElementById('listingType').value;
+  const classified=type==='classified';
+  document.getElementById('newQuantity').classList.toggle('hidden',type!=='fixed');
+  document.getElementById('listingForm').elements.quantity.disabled=type!=='fixed';
+  document.getElementById('auctionEnd').classList.toggle('hidden',type!=='auction');
+  document.getElementById('classifiedFields').classList.toggle('hidden',!classified);
+  document.getElementById('adFeeConfirm').required=classified;
+}
+async function showListingDetails(id){
+  try{
+    const item=await api('/api/listings/'+id);
+    document.getElementById('adTitle').textContent=item.title;
+    renderPhotos(document.getElementById('listingPhotos'),item.photos||[]);
+    document.getElementById('adDescription').textContent=item.description;
+    document.getElementById('adPrice').textContent=money(item.price)+' · '+shippingLabel(item)+' · '+item.category+(item.subcategory?' / '+item.subcategory:'')+' · '+item.condition+' · '+item.location+' · '+soldLabel(item.seller_sold_count);
+    document.getElementById('adContact').hidden=me?.id===item.seller_id;
+    document.getElementById('adContact').onclick=()=>{
+      document.getElementById('classifiedDetails').close();
+      contactSeller(item.id,item.title);
+    };
+    document.getElementById('classifiedDetails').showModal();
+  }catch(e){msg(e)}
+}
+async function createListing(e){
+  e.preventDefault();
+  const form=e.target;
+  const button=e.submitter;
+  const fields=new FormData(form);
+  if(fields.get('listing_type')==='classified')fields.set('classified_fee',classifiedFee);
+  if(button)button.disabled=true;
+  try{
+    const listing=await api('/api/listings',{method:'POST',body:fields});
+    form.reset();
+    updateSubcategories(form);
+    toggleAuction();
+    await refreshMe();
+    if(listing.feeOrderId){
+      await loadOrders();
+      await approvePayPal(listing.feeOrderId);
+      return;
+    }
+    alert('Your listing has been published.');
+    setCat('All');
+    document.getElementById('browse').scrollIntoView({behavior:'smooth'});
+  }catch(x){msg(x)}
+  finally{if(button)button.disabled=false}
+}
+async function bid(id){if(!me){alert('Sign in before bidding.');return}let amount=prompt('Enter your bid amount in pounds (e.g. 25.50):');if(!amount)return;try{let d=await api(`/api/listings/${id}/bids`,{method:'POST',body:JSON.stringify({amount})});alert('Bid placed. Current bid: '+money(d.current_bid));load()}catch(e){msg(e)}}
+async function adminSummary(){try{let d=await api('/api/admin/summary');document.getElementById('adminStats').innerHTML=Object.entries(d).map(([k,v])=>`<div class="stat"><b>${v}</b>${esc(k)}</div>`).join('')}catch(e){msg(e)}}
+function showAccount(){document.getElementById('account').scrollIntoView({behavior:'smooth'})}
+async function restoreBasket(){
+  await Promise.all(basket.map(async id=>{
+    try{basketItems.set(id,await api('/api/listings/'+id))}
+    catch(e){basketItems.set(id,{id,title:'Unavailable listing',price:0})}
+  }));
+  renderBasket();
+}
+async function connectPayPal(){
+  try {
+    const result=await api('/api/paypal/connect',{method:'POST'});
+    location.assign(result.url);
+  }catch(e){msg(e)}
+}
+async function startPayPal(selection){
+  if(!me){msg('Please sign in first.');return}
+  try {
+    const result=await api('/api/paypal/orders',{method:'POST',body:JSON.stringify(selection)});
+    if(selection.listingIds)clearBasket();
+    await loadOrders();
+    await approvePayPal(result.orderId);
+  }catch(e){msg(e)}
+}
+async function approvePayPal(id){
+  try{
+    const result=await api('/api/paypal/orders/'+id+'/approve',{method:'POST'});
+    location.assign(result.url);
+  }catch(e){msg(e)}
+}
+async function handlePayPalReturn(){
+  await refreshMe();
+  const params=new URLSearchParams(location.search);
+  if(!me||!paymentsEnabled)return;
+  try{
+    if(params.has('paypalSeller')){
+      await api('/api/paypal/verify-seller',{method:'POST'});
+      msg('Your PayPal sandbox account is connected.');
+    }
+    if(params.has('paypalOrder')){
+      const id=encodeURIComponent(params.get('paypalOrder'));
+      const result=await api('/api/paypal/orders/'+id+'/capture',{method:'POST'});
+      msg(result.shopActivated?'Business Shop active for 30 days.':result.slotsAdded?result.slotsAdded+' Business listing slots added.':result.published?'Listing fee paid. Your classified ad is published.':'PayPal sandbox payment completed.');
+      await refreshMe();
+    }
+    if(params.has('paypalCancelled'))msg('Payment cancelled. Resume checkout from Your orders.');
+  }catch(e){msg(e)}
+  if(params.has('paypalSeller')||params.has('paypalOrder')||params.has('paypalCancelled')){
+    history.replaceState(null,'',location.pathname);
+  }
+}
+async function loadFeedback(){
+  const user=me?.id;
+  const panel=document.getElementById('feedbackPanel');
+  const rows=document.getElementById('feedbackRows');
+  panel.classList.toggle('hidden',!user);
+  if(!user){rows.replaceChildren();return}
+  try{
+    const orders=await api('/api/feedback');
+    if(me?.id!==user)return;
+    rows.innerHTML=orders.map(order=>`<article class="panel">
+      <strong>Order #${order.order_id} · ${esc(order.items)}</strong>
+      <p>${esc(order.recipient_role)}: ${esc(order.participant)}</p>
+      ${order.received_rating?`<p>Received: ${order.received_rating===1?'Positive':'Negative'} · ${esc(order.received_comment)}</p>`:''}
+      ${order.rating?`<p>Left: ${order.rating===1?'Positive':'Negative'} · ${esc(order.comment)}</p>`:
+        `<form onsubmit="submitFeedback(event,${order.order_id},${order.seller_id})">
+          <label>Rating <select name="rating" required><option value="">Choose feedback</option>
+           <option value="1">Positive</option><option value="-1">Negative</option></select></label>
+          <label>Comment (optional)<textarea name="comment" maxlength="500"></textarea></label>
+          <button class="primary">Leave feedback</button>
+        </form>`}
+    </article>`).join('')||'Feedback is available after an order is paid.';
+  }catch(e){if(me?.id===user)rows.textContent='Could not load order feedback.'}
+}
+async function submitFeedback(event,orderId,sellerId){
+  event.preventDefault();
+  const data=new FormData(event.target);
+  const button=event.submitter;
+  if(button)button.disabled=true;
+  try{
+    await api('/api/feedback',{method:'POST',body:JSON.stringify({
+      orderId,sellerId,rating:Number(data.get('rating')),comment:data.get('comment')
+    })});
+    await Promise.all([loadFeedback(),load()]);
+  }catch(e){msg(e)}
+  finally{if(button)button.disabled=false}
+}
+async function showSellerFeedback(id){
+  const dialog=document.getElementById('sellerFeedbackDialog');
+  const rows=document.getElementById('sellerFeedbackRows');
+  rows.textContent='Loading feedback…';
+  if(!dialog.open)dialog.showModal();
+  try{
+    const reviews=await api('/api/sellers/'+id+'/feedback');
+    rows.innerHTML=reviews.map(review=>`<p><b>${review.rating===1?'Positive':'Negative'}</b>
+      · ${esc(review.author)}<br>${esc(review.comment)}</p>`).join('')||'No feedback yet.';
+  }catch(e){rows.textContent='Could not load seller feedback.'}
+}
+const editDialog=document.getElementById('editListingDialog');
+const editForm=document.getElementById('editListingForm');
+let editingListing=null;
+
+function renderPhotos(container,photos){
+  container.replaceChildren();
+  for(const [index,photo] of photos.entries()){
+    const img=document.createElement('img');
+    img.src=photo;
+    img.alt='Listing photo '+(index+1);
+    container.append(img);
+  }
+}
+async function loadMyListings(){
+  const panel=document.getElementById('myListings');
+  const rows=document.getElementById('myListingRows');
+  const user=me?.id;
+  panel.classList.toggle('hidden',!user);
+  if(!user){rows.replaceChildren();editDialog.close();return}
+  try{
+    const listings=await api('/api/my-listings');
+    if(user!==me?.id)return;
+    rows.replaceChildren();
+    if(!listings.length)rows.textContent='You have no listings yet.';
+    for(const item of listings){
+      const row=document.createElement('p');
+      row.textContent=item.title+' · '+money(item.price)+' · '+item.status.replaceAll('_',' ')+(item.listing_type==='fixed'?' · '+item.available_quantity+' available':'');
+      if(item.can_edit){
+        const button=document.createElement('button');
+        button.type='button';
+        button.textContent='Edit listing';
+        button.onclick=()=>editListing(item);
+        row.append(' ',button);
+      }
+      rows.append(row);
+    }
+  }catch(e){rows.textContent='Could not load your listings.'}
+}
+function editListing(item){
+  editingListing=item;
+  editForm.reset();
+  const category=editForm.elements.category;
+  category.replaceChildren(...[...new Set([...categories.slice(1),item.category])].map(name=>new Option(name)));
+  for(const field of ['title','description','category','condition','price','location']){
+    editForm.elements[field].value=item[field]??'';
+  }
+  updateSubcategories(editForm,item.subcategory);
+  const fixed=item.listing_type==='fixed';
+  document.getElementById('editQuantity').classList.toggle('hidden',!fixed);
+  editForm.elements.quantity.disabled=!fixed;
+  editForm.elements.quantity.value=item.available_quantity||1;
+  editForm.elements.shipping.value=(item.shipping_pence/100).toFixed(2);
+  renderPhotos(document.getElementById('editExistingPhotos'),item.photos);
+  editForm.elements.photos.disabled=item.photos.length>=8;
+  editDialog.showModal();
+}
+async function saveListing(event){
+  event.preventDefault();
+  const item=editingListing;
+  const files=[...editForm.elements.photos.files];
+  if(files.length+item.photos.length>8||files.some(file=>file.size>5*1024*1024)){
+    msg('Use up to 8 photos in total, each 5 MB or smaller.');
+    return;
+  }
+  const data=new FormData(editForm);
+  if(item.listing_type==='fixed')data.set('expected_quantity',item.available_quantity);
+  if(!files.length)data.delete('photos');
+  const button=event.submitter;
+  if(button)button.disabled=true;
+  try{
+    await api('/api/listings/'+item.id,{method:'PATCH',body:data});
+    editDialog.close();
+    await Promise.all([loadMyListings(),load()]);
+  }catch(e){msg(e);loadMyListings()}
+  finally{if(button)button.disabled=false}
+}
+const messageDialog=document.getElementById('messageDialog');
+const messageForm=document.getElementById('messageForm');
+const messageBody=document.getElementById('messageBody');
+const inboxList=document.getElementById('inboxList');
+const threadHistory=document.getElementById('threadHistory');
+let messageTarget=null;
+let messageView=0;
+messageDialog.addEventListener('close',()=>{messageView++;messageTarget=null});
+
+async function updateUnread(){
+  const user=me?.id;
+  try{
+    const inbox=user?await api('/api/messages'):[];
+    if(user!==me?.id)return;
+    const unread=inbox.reduce((sum,thread)=>sum+thread.unread,0);
+    document.getElementById('inboxButton').textContent=unread?'Messages ('+unread+')':'Messages';
+  }catch(e){console.error(e)}
+}
+function resetMessages(title,compose){
+  messageView++;
+  messageTarget=null;
+  document.getElementById('messageTitle').textContent=title;
+  inboxList.replaceChildren();
+  threadHistory.replaceChildren();
+  messageBody.value='';
+  messageForm.classList.toggle('hidden',!compose);
+  if(!messageDialog.open)messageDialog.showModal();
+  return messageView;
+}
+async function showInbox(){
+  if(!me){showAccount();msg('Sign in to view your messages.');return}
+  const view=resetMessages('Messages',false);
+  try{
+    const inbox=await api('/api/messages');
+    if(view!==messageView)return;
+    if(!inbox.length)inboxList.textContent='You have no conversations yet.';
+    for(const thread of inbox){
+      const button=document.createElement('button');
+      button.textContent=thread.title+' · '+thread.participant+
+        (thread.unread?' · '+thread.unread+' unread':'')+' — '+thread.latest;
+      button.onclick=()=>openThread(thread.id);
+      inboxList.append(button);
+    }
+  }catch(e){msg(e)}
+}
+async function contactSeller(listingId,title){
+  if(!me){showAccount();msg('Sign in to contact the seller.');return}
+  const view=resetMessages('Contact seller',false);
+  try{
+    const item=title?{title}:await api('/api/listings/'+listingId);
+    if(view!==messageView)return;
+    document.getElementById('messageTitle').textContent='Contact seller · '+item.title;
+    messageTarget={listingId};
+    messageForm.classList.remove('hidden');
+    messageBody.focus();
+  }catch(e){msg(e)}
+}
+async function openThread(id){
+  const view=resetMessages('Conversation',false);
+  try{
+    const {thread,history}=await api('/api/messages/'+id);
+    if(view!==messageView)return;
+    const other=me.id===thread.buyer_id?thread.seller_name:thread.buyer_name;
+    document.getElementById('messageTitle').textContent=thread.title+' · '+other;
+    for(const entry of history){
+      const line=document.createElement('p');
+      const timestamp=new Date(entry.sent_at.replace(' ','T')+'Z').toLocaleString('en-GB');
+      line.textContent=(entry.sender_id===me.id?'You':other)+' · '+timestamp+'\n'+entry.body;
+      threadHistory.append(line);
+    }
+    threadHistory.scrollTop=threadHistory.scrollHeight;
+    messageTarget={id};
+    messageForm.classList.remove('hidden');
+    if(history.length){
+      await api('/api/messages/'+id+'/read',{method:'POST',body:JSON.stringify({through:history.at(-1).id})});
+      updateUnread();
+    }
+  }catch(e){msg(e)}
+}
+async function sendMessage(event){
+  event.preventDefault();
+  if(!messageTarget)return;
+  const view=messageView;
+  const button=event.submitter;
+  if(button)button.disabled=true;
+  try{
+    const {id,listingId}=messageTarget;
+    const result=await api(id?'/api/messages/'+id:'/api/messages',{
+      method:'POST',body:JSON.stringify({listingId,body:messageBody.value})
+    });
+    if(view===messageView)await openThread(result.id);
+  }catch(e){msg(e)}
+  finally{if(button)button.disabled=false}
+}
+setInterval(()=>{if(me&&!document.hidden)updateUnread()},30000);
+restoreBasket();setupCategories().then(handlePayPalReturn).then(load).catch(msg);
+</script></body></html>

@@ -1,0 +1,16 @@
+{
+  "Electronics": ["Phones & accessories", "Computers & tablets", "TV & home cinema", "Headphones & audio", "Cameras & lenses", "Wearable tech", "Smart home", "Cables & chargers"],
+  "Home & Garden": ["Furniture & storage", "Kitchen & dining", "Home décor & lighting", "Bedding & textiles", "Household appliances", "Tools & DIY", "Garden & outdoor living", "Pet supplies"],
+  "Fashion": ["Women's clothing", "Men's clothing", "Children's clothing", "Shoes & trainers", "Bags & accessories", "Vintage clothing", "Workwear & uniforms"],
+  "Motors": ["Cars & vans", "Motorcycles & scooters", "Caravans & motorhomes", "Vehicle parts", "Wheels & tyres", "Car care & tools", "In-car electronics"],
+  "Collectables": ["Coins & banknotes", "Stamps & postcards", "Art & prints", "Antiques & vintage finds", "Trading cards", "Film & music memorabilia", "Decorative collectables"],
+  "Sports": ["Fitness & training", "Cycling", "Football & team sports", "Golf", "Camping & hiking", "Fishing", "Water sports", "Sports memorabilia"],
+  "Toys & Hobbies": ["Action figures & dolls", "Building sets", "Board games & puzzles", "Model kits & railways", "Remote-control models", "Craft supplies", "Musical instruments"],
+  "Jewellery & Timepieces": ["Fine jewellery", "Fashion jewellery", "Wristwatches", "Watch accessories", "Beads & jewellery making"],
+  "Books, Music & Games": ["Books & magazines", "Comics & graphic novels", "Vinyl & CDs", "Film & TV discs", "Video games", "Consoles & gaming accessories"],
+  "Beauty & Personal Care": ["Skincare", "Make-up", "Fragrance", "Haircare", "Grooming tools", "Personal care accessories"],
+  "Baby & Nursery": ["Pushchairs & carriers", "Nursery furniture", "Feeding accessories", "Baby clothing", "Baby toys"],
+  "Work & Trade": ["Office equipment", "Packaging & supplies", "Retail & catering equipment", "Construction & surveying", "Workshop machinery", "Safety equipment", "Agricultural equipment"],
+  "Property & Spaces": ["Homes for sale", "Homes to rent", "Commercial spaces", "Parking & garages", "Land"],
+  "Other": ["Tickets & experiences", "Gift supplies", "Miscellaneous"]
+}

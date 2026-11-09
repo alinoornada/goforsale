@@ -1,0 +1,34 @@
+[
+  {
+    "category": "Weapons and hazardous materials",
+    "rule": "Firearms, airguns, ammunition, major weapon components, offensive weapons, pepper spray, stun devices, explosives, fireworks and hazardous chemicals or substances."
+  },
+  {
+    "category": "Drugs and regulated products",
+    "rule": "Illegal or controlled drugs, drug paraphernalia, prescription medicines, alcohol, tobacco, nicotine products, vapes and e-cigarette supplies."
+  },
+  {
+    "category": "Stolen, fake or unauthorised goods",
+    "rule": "Stolen property, counterfeit or replica goods offered as branded products, pirated copies, unauthorised digital access and goods that infringe someone else's intellectual property."
+  },
+  {
+    "category": "Unsafe or recalled products",
+    "rule": "Recalled, banned or known unsafe goods, products missing required safety approvals, and items advertised with safety features disabled or removed."
+  },
+  {
+    "category": "Animals and wildlife",
+    "rule": "Live animals, protected wildlife, ivory, goods made from protected species and human remains or body parts. Ordinary pet supplies are permitted."
+  },
+  {
+    "category": "Adult, exploitative or hateful material",
+    "rule": "Pornographic products, sexual exploitation material, material depicting child abuse, graphic violence or injury, and items promoting hatred or violent extremist groups."
+  },
+  {
+    "category": "Identity, privacy and fraud",
+    "rule": "Official identity documents, personal data, stolen accounts or credentials, counterfeit currency, tools marketed for fraud or theft, and services selling fake reviews or engagement."
+  },
+  {
+    "category": "Financial and unlawful offers",
+    "rule": "Cryptocurrency or financial instruments offered as investments, gambling services, and any product or service whose sale is unlawful. Genuine collectable coins and banknotes may be listed."
+  }
+]

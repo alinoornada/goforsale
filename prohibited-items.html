@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prohibited items | goforsale.co.uk</title>
+<style>
+body{margin:0;background:#f5f7fb;color:#182230;font:16px/1.55 system-ui,sans-serif}
+main{max-width:760px;margin:32px auto;padding:0 20px 40px}
+a{color:#174caa}h1,h2{color:#172554}h2{font-size:1.15rem;margin:0}
+section{background:white;padding:16px 20px;margin:12px 0;border:1px solid #e2e8f0;border-radius:10px}
+section p{margin:8px 0 0}
+</style>
+</head>
+<body><main>
+<a href="/">Back to goforsale.co.uk</a>
+<h1>Prohibited items</h1>
+<p>These rules apply to Buy It Now listings, auctions and classified ads. They cover the item or service offered, along with the listing title, description and photos.</p>
+<div id="rules" aria-live="polite">Loading policy…</div>
+<script>
+(async()=>{
+ const container=document.getElementById('rules');
+ try {
+  const response=await fetch('/prohibited-items.json');
+  if(!response.ok)throw Error('Policy unavailable');
+  const rules=await response.json();
+  container.replaceChildren(...rules.map(rule=>{
+   const section=document.createElement('section');
+   const heading=document.createElement('h2');
+   const text=document.createElement('p');
+   heading.textContent=rule.category;
+   text.textContent=rule.rule;
+   section.append(heading,text);
+   return section;
+  }));
+ } catch {
+  container.textContent='The policy is temporarily unavailable. Please try again.';
+ }
+})();
+</script>
+</main></body>
+</html>
