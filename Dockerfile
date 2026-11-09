@@ -9,5 +9,5 @@ WORKDIR /app
 ENV NODE_ENV=production
 COPY --from=dependencies /app/node_modules ./node_modules
 COPY package.json server.js paypal.js messages.js message-email.js feedback.js moderation.js ./
-COPY public ./public
+COPY categories.json index.html prohibited-items.html prohibited-items.json ./public/
 CMD ["npm", "start"]
